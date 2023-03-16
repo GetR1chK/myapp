@@ -1,4 +1,4 @@
-import { Layout, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { Link, Outlet } from 'umi';
 import type { MenuProps } from 'antd';
 
@@ -26,9 +26,19 @@ const items: MenuItem[] = [
 ];
 
 export default function BasicLayout() {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider>
+        <div
+          style={{
+            height: 32,
+            margin: 16,
+            background: 'rgba(255,255,255,0.2)',
+          }}
+        ></div>
         <Menu
           theme="dark"
           defaultSelectedKeys={['1']}
@@ -37,9 +47,22 @@ export default function BasicLayout() {
         ></Menu>
       </Sider>
       <Layout>
-        <Header></Header>
-        <Content>
-          <Outlet />
+        <Header style={{ padding: 16, background: colorBgContainer }}>
+          <Breadcrumb>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+          </Breadcrumb>
+        </Header>
+        <Content style={{ margin: 16 }}>
+          <div
+            style={{
+              padding: 24,
+              minHeight: '50vh',
+              background: colorBgContainer,
+            }}
+          >
+            <Outlet />
+          </div>
         </Content>
         <Footer></Footer>
       </Layout>
